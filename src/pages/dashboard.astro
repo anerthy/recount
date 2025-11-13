@@ -1,10 +1,8 @@
 ---
 import { getUserProfile } from '@/actions/users/get-profile.action';
-import StatsCards from '@/components/dashboard/StatsCards.astro';
 import UserGroups from '@/components/dashboard/UserGroups.astro';
 import Layout from '@/layouts/Layout.astro';
 import { supabase } from '@/lib/supabase';
-import { actions } from 'astro:actions';
 
 const accessToken = Astro.cookies.get('sb-access-token');
 const refreshToken = Astro.cookies.get('sb-refresh-token');
