@@ -1,0 +1,31 @@
+---
+interface Props {
+  title: string;
+  subtitle: string;
+  linkText: string;
+  linkHref: string;
+  color?: 'indigo' | 'purple';
+}
+
+const { title, subtitle, linkText, linkHref, color = 'indigo' } = Astro.props;
+
+const colorClasses = {
+  indigo: 'text-indigo-600 hover:text-indigo-700',
+  purple: 'text-purple-600 hover:text-purple-700',
+};
+---
+
+<div class="text-center mb-8">
+  <h1 class="text-3xl font-bold text-gray-900 mb-2">
+    {title}
+  </h1>
+  <p class="text-gray-600">
+    {subtitle}
+    <a
+      href={linkHref}
+      class={`${colorClasses[color]} font-medium transition-colors`}
+    >
+      {linkText}
+    </a>
+  </p>
+</div>

@@ -1,0 +1,20 @@
+---
+interface Props {
+  text: string;
+  color?: 'indigo' | 'purple';
+}
+
+const { text, color = 'indigo' } = Astro.props;
+
+const colorClasses = {
+  indigo: 'bg-indigo-600 hover:bg-indigo-700 focus:ring-indigo-200',
+  purple: 'bg-purple-600 hover:bg-purple-700 focus:ring-purple-200',
+};
+---
+
+<button
+  type="submit"
+  class={`w-full ${colorClasses[color]} text-white py-3 px-4 rounded-lg font-medium focus:ring-4 transition-all transform hover:scale-[1.02] active:scale-[0.98]`}
+>
+  {text}
+</button>
