@@ -24,13 +24,14 @@ export const register = defineAction({
       throw new Error(error.message);
     }
 
-    // const { error: insertError } = await supabase
-    //   .from('users')
-    //   .insert([{ username, email, name }]);
+    const { error: insertError } = await supabase
+      .from('users')
+      .insert([{ username, email, name }]);
 
-    // if (insertError) {
-    //   throw new Error(insertError.message);
-    // }
+    if (insertError) {
+      console.error('Error inserting user data:', insertError);
+      throw new Error(insertError.message);
+    }
 
     return { success: true };
   },
