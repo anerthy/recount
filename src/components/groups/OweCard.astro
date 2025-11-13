@@ -1,0 +1,38 @@
+---
+interface Props {
+  username: string;
+  description: string;
+  avatar: string;
+  amount: number;
+  currency?: string;
+}
+
+const { username, description, avatar, amount, currency = '$' } = Astro.props;
+
+const isOwed = amount <= 0;
+---
+
+<div class="flex items-center gap-4 rounded-lg bg-white p-4 shadow-sm">
+  <img
+    class="h-12 w-12 rounded-full object-cover"
+    data-alt={`Avatar de ${username}`}
+    src={avatar}
+  />
+  <div class="grow">
+    <p class="font-bold text-zinc-800">
+      {isOwed ? `Le debes a ${username}` : `${username} te debe`}
+    </p>
+    <p class="text-sm text-zinc-500">{description}</p>
+  </div>
+  {
+    isOwed ? (
+      <span class="font-bold text-orange-500 text-lg">
+        -{Math.abs(amount)} {currency}
+      </span>
+    ) : (
+      <span class="font-bold text-emerald-500 text-lg">
+        +{Math.abs(amount)} {currency}
+      </span>
+    )
+  }
+</div>

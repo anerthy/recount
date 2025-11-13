@@ -1,0 +1,26 @@
+---
+import OweCard from './OweCard.astro';
+---
+
+<section class="mt-8">
+  <h3
+    class="text-zinc-900 text-[22px] font-bold leading-tight tracking-[-0.015em] pb-3"
+  >
+    Desglose
+  </h3>
+  <div class="space-y-3">
+    <OweCard
+      username="John"
+      avatar="https://lh3.googleusercontent.com/aida-public/AB6AXuAoNEMmmUKkCQ7s1uAsNLFF_okktLwdKMeEo269vdbcLwu5UsBpxBOmTxMVfop9Rz4xgRJT_zhq-kctdJNK0Kcb1q0W8oI5Zm3bnJdIQbKReP1kU_EuTqHVzALuaYTir09PF6D8B1M2gNbhhZX3USr4kVBPYnSpVaOEtDABUKGysD3ANC_iQTzeqrOmo1WmkyaL9ze49OgLo4ZqeCYrBynmhWLTKgpJGbbAmh-1-CLUvXCpjxhV_qpfqikefh-6E99OrPAhrtIcag"
+      description="Cena del sábado"
+      amount={12.2}
+    />
+
+    <OweCard
+      username="Ana"
+      avatar="https://lh3.googleusercontent.com/aida-public/AB6AXuAI7knftlxXavPQaJFoVOf5na_8qGoAPNX4FPW13wN2-c0AAi1ZarLdryEN8xv4oA9TQGSoLvcqCMO3M0G7fanNoVf1ij8uIvcld30-h3sENlVld1PHnfNZFMRl8h0Z1s07xoVhfuTTCsEG849svbixsDHCTEaX_tVDXuKL3uuuVRgDFgGrCmcfMYFZ4UmJYDwOgr_t2ZGxoL1pooSZ5YgWBt80i-uOjOXWiqLclVlxgXn1ACIeMhH6phfCBbgPk53_-oTkcvZM-w"
+      description="Factura de la luz"
+      amount={-45.5}
+    />
+  </div>
+</section>
