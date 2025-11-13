@@ -1,0 +1,99 @@
+---
+import AuthHeader from '@/components/auth/AuthHeader.astro';
+import AuthLayout from '@/components/auth/AuthLayout.astro';
+import Input from '@/components/auth/Input.astro';
+import SocialButtons from '@/components/auth/SocialButtons.astro';
+import SubmitButton from '@/components/auth/SubmitButton.astro';
+import Layout from '@/layouts/Layout.astro';
+
+const { cookies, redirect } = Astro;
+
+const accessToken = cookies.get('sb-access-token');
+const refreshToken = cookies.get('sb-refresh-token');
+
+if (accessToken && refreshToken) {
+  return redirect('/dashboard');
+}
+---
+
+<Layout title="Sign in">
+  <AuthLayout>
+    <AuthHeader
+      title="Sign in"
+      subtitle="New here?"
+      linkText="Create an account"
+      linkHref="/register"
+      color="indigo"
+    />
+    <form action="/api/auth/signin" method="post" class="space-y-6">
+      <Input
+        type="email"
+        name="email"
+        id="email"
+        label="Email"
+        placeholder="you@example.com"
+        required
+        color="indigo"
+      />
+
+      <Input
+        type="password"
+        name="password"
+        id="password"
+        label="Password"
+        placeholder="••••••••"
+        required
+        color="indigo"
+      />
+
+      <div class="flex justify-end">
+        <a
+          href="/forgot-password"
+          class="text-sm text-indigo-600 hover:text-indigo-700 transition-colors"
+        >
+          Forgot password?
+        </a>
+      </div>
+
+      <SubmitButton text="Login" color="indigo" />
+    </form>
+
+    <SocialButtons />
+
+    <p slot="footer" class="text-center text-sm text-gray-600 mt-8">
+      Protected by reCAPTCHA and subject to the
+      <a href="#" class="text-indigo-600 hover:text-indigo-700"
+        >Privacy Policy</a
+      >
+    </p>
+  </AuthLayout>
+</Layout>
+
+<script>
+  import { actions, isInputError } from 'astro:actions';
+  import { navigate } from 'astro:transitions/client';
+
+  const form = document.querySelector('form') as HTMLFormElement;
+
+  form.addEventListener('submit', async (e) => {
+    e.preventDefault();
+
+    const formData = new FormData(form);
+
+    const { error } = await actions.signIn(formData);
+
+    if (isInputError(error)) {
+      if (error.fields.email) {
+        const message = error.fields.email.join(', ');
+        alert(message);
+        return;
+      }
+      if (error.fields.password) {
+        const message = error.fields.password.join(', ');
+        alert(message);
+        return;
+      }
+    }
+    navigate('/dashboard');
+  });
+</script>
