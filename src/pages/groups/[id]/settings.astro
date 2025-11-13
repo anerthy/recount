@@ -1,0 +1,226 @@
+---
+import Layout from '@/layouts/Layout.astro';
+
+const { id } = Astro.params;
+---
+
+<Layout title="Config">
+  <div class="bg-background-light font-display text-slate-800">
+    <div
+      class="relative w-full max-w-md mx-auto min-h-screen flex flex-col group/design-root overflow-x-hidden"
+    >
+      <!-- Top App Bar -->
+      <header
+        class="sticky top-0 z-10 flex items-center bg-background-light/80 backdrop-blur-sm p-4 justify-between border-b border-slate-200"
+      >
+        <a
+          href={`/group/${id}`}
+          aria-label="Go back to group page"
+          class="flex size-10 shrink-0 items-center justify-center rounded-full hover:bg-slate-200 transition-colors"
+        >
+          <span class="material-symbols-outlined">arrow_back</span>
+        </a>
+        <h1 class="text-lg font-bold flex-1 text-center">Ajustes del Grupo</h1>
+        <button
+          class="px-4 py-2 text-sm font-bold text-primary hover:bg-primary/10 rounded-full transition-colors"
+          >Guardar</button
+        >
+      </header>
+      <main class="grow p-4 space-y-8 pb-10">
+        <!-- Group Details Section -->
+        <section class="space-y-4">
+          <div class="relative w-24 h-24 mx-auto">
+            <div
+              class="w-24 h-24 rounded-full bg-center bg-no-repeat bg-cover border-4 border-white shadow-md"
+              data-alt="Friends laughing together on a trip"
+              style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuBYyyW7fO-K4hHxxyMR9N84gmIa6vdSRfupWcNYj-Dn5dSY0KAMFvHEcV53l8xvmrtuNDZRutJBa3eF--sS_S2T85W56ngBLHxTCk6ieex-bSRi9q7FKMbsf8g-d-sP8iLMpaurEWmEyiVaXFSXQIG0eG8A4-vQoiFaehVuCXxy7gkCsxdUu1atdBy4g426762mi9o2qjaA4Ki8XubQZm3H235v8m-YpIQaAj1SThJQiujW99TWBYUdKHC4c6tJflKyTWQOdgq9rA');"
+            >
+            </div>
+            <button
+              class="absolute bottom-0 right-0 flex items-center justify-center size-8 bg-primary text-slate-900 rounded-full border-2 border-background-light hover:scale-110 transition-transform"
+            >
+              <span class="material-symbols-outlined" style="font-size: 20px;"
+                >photo_camera</span
+              >
+            </button>
+          </div>
+          <div>
+            <label class="text-sm font-medium text-slate-500" for="group-name"
+              >Nombre del Grupo</label
+            >
+            <input
+              class="mt-1 block w-full bg-slate-100 border-transparent focus:border-primary focus:ring-primary rounded-lg text-lg font-semibold text-center py-3"
+              id="group-name"
+              type="text"
+              value="Piso de Estudiantes"
+            />
+          </div>
+        </section>
+        <!-- Members Section -->
+        <section>
+          <div class="flex justify-between items-center mb-3">
+            <h2 class="text-xl font-bold">Miembros</h2>
+            <button
+              class="flex items-center gap-2 px-4 py-2 text-sm font-bold bg-primary/20 text-primary rounded-full hover:bg-primary/30 transition-colors"
+            >
+              <span class="material-symbols-outlined" style="font-size: 18px;"
+                >person_add</span
+              >
+              Invitar
+            </button>
+          </div>
+          <div class="bg-white rounded-xl overflow-hidden shadow-sm">
+            <div class="flex items-center gap-4 p-3 border-b border-slate-100">
+              <img
+                class="h-10 w-10 rounded-full object-cover"
+                data-alt="Portrait of Laura Gómez"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuBRzCw7tZRshofjv5tGZfwDLUaHm9Cy1yqGqE4eWa0VOfntKQzR6xf0Wb1TUa61TxZcdie6QLtGZwJGC027gw9sDHA-V0rTxHrJq27ejuuB9HdohMCcmCOIJVu2O05anZAX1SGEJuUjcclSS0LVQ1DgL_uVrO70oZq1oiRTT-8pi9Q7w8A5bMBceT0mW4I6fL0sS_HhtHe1A8D6DXScan02nO0Efoid06zS-99p39i5Pie5wVvy7FXOAQsrJ9lSzUhHZrgL0loQtQ"
+              />
+              <div class="flex-1">
+                <p class="font-semibold truncate">Laura Gómez</p>
+                <p class="text-xs text-primary font-medium">Admin</p>
+              </div>
+              <button
+                class="shrink-0 flex size-8 items-center justify-center rounded-full hover:bg-slate-100 transition-colors"
+              >
+                <span class="material-symbols-outlined text-slate-500"
+                  >more_vert</span
+                >
+              </button>
+            </div>
+            <div class="flex items-center gap-4 p-3 border-b border-slate-100">
+              <img
+                class="h-10 w-10 rounded-full object-cover"
+                data-alt="Portrait of Carlos Fernández"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuAxEo3UF1VYD5TkF7MeFUgVbZeM33bQvksDf8YiphoTy7DYJ1uFgM9htMUJc3tvL0vrv3vuKOPOvUdeOrL6epNxtZm-ZZlr1cF7EaeMYjyOPpcNo2iITZq2AaQQpBptwQWduYGo1eJxP6SErd3XtP7WyDl_fb78evqwxTJRoA5CrjK5kqQyNO5rY8uhr_UXvdBx74sLe7DJ1Ougxo0z9DiLGjnCSKPk9ltvHiegDR-teYEES2KNlTJJDoOJEINvHQnoB7KYeawdZA"
+              />
+              <div class="flex-1">
+                <p class="font-semibold truncate">Carlos Fernández</p>
+                <p class="text-xs text-slate-400">Miembro</p>
+              </div>
+              <button
+                class="shrink-0 flex size-8 items-center justify-center rounded-full hover:bg-slate-100 transition-colors"
+              >
+                <span class="material-symbols-outlined text-slate-500"
+                  >more_vert</span
+                >
+              </button>
+            </div>
+            <div class="flex items-center gap-4 p-3">
+              <img
+                class="h-10 w-10 rounded-full object-cover"
+                data-alt="Portrait of Sofía Reyes"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCsU12zmN5ZWHPsGxIZB-YU9PbqV0IrfeMbgGTQTK4am-TlUHi6YItAN1JlofOsoBHMoHfWUMELPiVc8ZflokkbbnD-jdfjcI2aoWASq6T1Xb1rxTmF4rBvvKXs6-X9vIJGjvLO4CRpT5CjSH6Nb48C6o6zWgQegVynCzqu8fia_Fn3YYWBnDVOc1ezNREtqnOqtajnti9FxF04vA_VTePeItItHtDBNfiDK6a8yTcbcWFtx_SFU89JhSRI-LfVUmk8yQR8xqoHqA"
+              />
+              <div class="flex-1">
+                <p class="font-semibold truncate">Sofía Reyes</p>
+                <p class="text-xs text-slate-400">Miembro</p>
+              </div>
+              <button
+                class="shrink-0 flex size-8 items-center justify-center rounded-full hover:bg-slate-100 transition-colors"
+              >
+                <span class="material-symbols-outlined text-slate-500"
+                  >more_vert</span
+                >
+              </button>
+            </div>
+          </div>
+        </section>
+        <!-- Default Split Section -->
+        <section>
+          <h2 class="text-xl font-bold mb-1">División de Gastos por Defecto</h2>
+          <p class="text-sm text-slate-500 mb-4">
+            Esta será la opción predeterminada para nuevos gastos.
+          </p>
+          <div class="space-y-2">
+            <label
+              class="flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm has-checked:ring-2 has-checked:ring-primary transition-all cursor-pointer"
+            >
+              <div
+                class="flex items-center justify-center size-10 rounded-lg bg-primary/20 text-primary"
+              >
+                <span class="material-symbols-outlined">balance</span>
+              </div>
+              <div class="flex-1">
+                <p class="font-semibold">Dividir por igual</p>
+              </div>
+              <input
+                checked=""
+                class="form-radio text-primary focus:ring-primary focus:ring-offset-0"
+                name="split-method"
+                type="radio"
+              />
+            </label>
+            <label
+              class="flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm has-checked:ring-2 has-checked:ring-primary transition-all cursor-pointer"
+            >
+              <div
+                class="flex items-center justify-center size-10 rounded-lg bg-emerald-500/20 text-emerald-500"
+              >
+                <span class="material-symbols-outlined">pie_chart</span>
+              </div>
+              <div class="flex-1">
+                <p class="font-semibold">Por porcentaje</p>
+              </div>
+              <input
+                class="form-radio text-primary focus:ring-primary focus:ring-offset-0"
+                name="split-method"
+                type="radio"
+              />
+            </label>
+            <label
+              class="flex items-center gap-4 p-4 bg-white rounded-xl shadow-sm has-checked:ring-2 has-checked:ring-primary transition-all cursor-pointer"
+            >
+              <div
+                class="flex items-center justify-center size-10 rounded-lg bg-amber-500/20 text-amber-500"
+              >
+                <span class="material-symbols-outlined">receipt_long</span>
+              </div>
+              <div class="flex-1">
+                <p class="font-semibold">Por importe exacto</p>
+              </div>
+              <input
+                class="form-radio text-primary focus:ring-primary focus:ring-offset-0"
+                name="split-method"
+                type="radio"
+              />
+            </label>
+          </div>
+        </section>
+        <!-- Danger Zone Section -->
+        <section>
+          <h2 class="text-xl font-bold mb-3">Zona de Peligro</h2>
+          <div class="bg-white rounded-xl overflow-hidden shadow-sm">
+            <button
+              class="w-full text-left p-4 flex items-center gap-4 text-red-500 hover:bg-red-500/10 transition-colors border-b border-slate-100"
+            >
+              <span class="material-symbols-outlined">logout</span>
+              <span class="font-semibold">Abandonar Grupo</span>
+            </button>
+            <button
+              class="w-full text-left p-4 flex items-center gap-4 text-red-500 hover:bg-red-500/10 transition-colors"
+            >
+              <span class="material-symbols-outlined">delete</span>
+              <span class="font-semibold">Eliminar Grupo</span>
+            </button>
+          </div>
+        </section>
+      </main>
+    </div>
+  </div>
+</Layout>
+
+<style>
+  .material-symbols-outlined {
+    font-variation-settings:
+      'FILL' 0,
+      'wght' 400,
+      'GRAD' 0,
+      'opsz' 24;
+    font-size: 24px;
+  }
+
+  body {
+    min-height: max(884px, 100dvh);
+  }
+</style>
