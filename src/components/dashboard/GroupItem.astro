@@ -1,0 +1,24 @@
+---
+interface Props {
+  name: string;
+  description: string;
+  timestamp: string;
+}
+
+const { name, description, timestamp } = Astro.props;
+---
+
+<a href="#">
+  <div class="flex items-start gap-4">
+    <div
+      class="w-10 h-10 rounded-full bg-blue-100 flex items-center justify-center shrink-0"
+    >
+      <slot name="icon" />
+    </div>
+    <div class="flex-1">
+      <p class="text-sm font-medium text-gray-900">{name}</p>
+      <p class="text-sm text-gray-500">{description}</p>
+      <p class="text-xs text-gray-400 mt-1">{timestamp}</p>
+    </div>
+  </div>
+</a>

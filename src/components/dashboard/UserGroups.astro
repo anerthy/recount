@@ -1,0 +1,39 @@
+---
+import CheckIcon from '../icons/CheckIcon.astro';
+import DollarIcon from '../icons/DollarIcon.astro';
+import UserIcon from '../icons/UserIcon.astro';
+import GroupItem from './GroupItem.astro';
+---
+
+<div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200">
+  <div class="p-6 border-b border-gray-200">
+    <h2 class="text-lg font-semibold text-gray-900">Your groups</h2>
+  </div>
+  <div class="p-6">
+    <div class="space-y-4">
+      <GroupItem
+        name="Roomies"
+        description="Group for all shared expenses"
+        timestamp="All owed $120 this month"
+      >
+        <UserIcon slot="icon" />
+      </GroupItem>
+
+      <GroupItem
+        name="Groceries"
+        description="Group for tracking grocery expenses"
+        timestamp="All owed $120 this month"
+      >
+        <CheckIcon slot="icon" />
+      </GroupItem>
+
+      <GroupItem
+        name="Electricity Bill and Internet"
+        description="Group for monthly utilities"
+        timestamp="All owed $120 this month"
+      >
+        <DollarIcon slot="icon" />
+      </GroupItem>
+    </div>
+  </div>
+</div>
