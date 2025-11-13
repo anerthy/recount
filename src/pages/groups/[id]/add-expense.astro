@@ -1,0 +1,190 @@
+---
+import Layout from '@/layouts/Layout.astro';
+---
+
+<Layout title="Add Expense">
+  <div class="bg-background-light font-display" id="div-body">
+    <div
+      class="relative flex min-h-screen w-full flex-col group/design-root overflow-x-hidden text-text-light"
+    >
+      <!-- Top App Bar -->
+      <header
+        class="flex items-center bg-background-light p-4 pb-2 justify-between sticky top-0 z-10 border-b border-border-light/50"
+      >
+        <div class="flex size-12 shrink-0 items-center justify-start">
+          <span class="material-symbols-outlined text-2xl">arrow_back</span>
+        </div>
+        <h2
+          class="text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center"
+        >
+          Añadir Gasto
+        </h2>
+        <div class="flex w-12 items-center justify-end">
+          <p
+            class="text-primary text-base font-bold leading-normal tracking-[0.015em] shrink-0"
+          >
+            Guardar
+          </p>
+        </div>
+      </header>
+      <main class="flex flex-col flex-1 pb-28">
+        <!-- Headline Text (Amount) -->
+        <div class="pt-6 pb-3 text-center">
+          <h1 class="text-5xl font-bold leading-tight tracking-tight">
+            €85.50
+          </h1>
+        </div>
+        <!-- Text Fields -->
+        <div class="px-4 py-3 flex flex-col gap-4">
+          <label class="flex flex-col">
+            <p class="text-base font-medium leading-normal pb-2">Descripción</p>
+            <input
+              class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg bg-field-light text-text-light placeholder:text-subtle-light h-14 p-4 text-base font-normal leading-normal border-none focus:ring-2 focus:ring-primary/50"
+              placeholder="¿En qué gastaron?"
+              value="Compra semanal supermercado"
+            />
+          </label>
+          <label class="flex flex-col">
+            <p class="text-base font-medium leading-normal pb-2">Fecha</p>
+            <input
+              class="form-input flex w-full min-w-0 flex-1 resize-none overflow-hidden rounded-lg bg-field-light text-text-light placeholder:text-subtle-light h-14 p-4 text-base font-normal leading-normal border-none focus:ring-2 focus:ring-primary/50"
+              type="date"
+              value="2024-10-26"
+            />
+          </label>
+        </div>
+        <!-- Category Picker -->
+        <div>
+          <h3
+            class="text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-4"
+          >
+            Categoría
+          </h3>
+          <div class="flex gap-3 px-4 py-2 overflow-x-auto">
+            <button
+              class="flex items-center gap-2 whitespace-nowrap rounded-full bg-primary/20 text-primary px-4 py-2 text-sm font-semibold"
+            >
+              <span class="material-symbols-outlined text-base"
+                >shopping_cart</span
+              >
+              Supermercado
+            </button>
+            <button
+              class="flex items-center gap-2 whitespace-nowrap rounded-full bg-field-light px-4 py-2 text-sm font-medium text-subtle-light"
+            >
+              <span class="material-symbols-outlined text-base"
+                >directions_bus</span
+              >
+              Transporte
+            </button>
+            <button
+              class="flex items-center gap-2 whitespace-nowrap rounded-full bg-field-light px-4 py-2 text-sm font-medium text-subtle-light"
+            >
+              <span class="material-symbols-outlined text-base"
+                >receipt_long</span
+              >
+              Servicios
+            </button>
+            <button
+              class="flex items-center gap-2 whitespace-nowrap rounded-full bg-field-light px-4 py-2 text-sm font-medium text-subtle-light"
+            >
+              <span class="material-symbols-outlined text-base"
+                >celebration</span
+              >
+              Ocio
+            </button>
+          </div>
+        </div>
+        <!-- Participant Selector -->
+        <div>
+          <div class="flex justify-between items-center px-4 pt-6 pb-2">
+            <h3 class="text-lg font-bold leading-tight tracking-[-0.015em]">
+              ¿Quiénes participaron?
+            </h3>
+            <button class="text-primary text-sm font-bold"
+              >Seleccionar todos</button
+            >
+          </div>
+          <div class="px-4">
+            <label class="flex gap-x-4 py-3 items-center">
+              <img
+                class="h-10 w-10 rounded-full object-cover"
+                data-alt="Profile picture of a user"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuDDjmM5irLSM0zfkkQF05l6JcL3QBjxznaZNtsBXk6RSgLUKIa4oPAhDIZPCzjq8qiqlDH2sw4dTKkShrbveJnN7qMDf0CPY4STGq_SMMRqqSaHCXnqA2WnaqlxevDaq9O5j05wiaGC_iwyhTX6eQQ6WsNFayYWw3se9LL5IS9wx5qjvoeG8Z-Yosg0I2due6IoD2xhZMQBlthcSWRKatSxAEFdQU0Gia1Bfg6NUyBNkOHjtX336kYnqWE5LYZHD8i8sppNs7ombw"
+              />
+              <p class="text-base font-normal leading-normal flex-1">Tú</p>
+              <input
+                checked=""
+                class="form-checkbox h-6 w-6 rounded-md border-border-light border-2 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0"
+                type="checkbox"
+              />
+            </label>
+            <div class="h-px bg-border-light ml-14"></div>
+            <label class="flex gap-x-4 py-3 items-center">
+              <img
+                class="h-10 w-10 rounded-full object-cover"
+                data-alt="Profile picture of Carlos Ruiz"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuCeqKeGd5U6m8ypk0L2OpNUQAIEPBbzIhIn2oyhpekNUv0tKQuzy2A5YPHG2eJTM9P2zKWxq_6iREIal6a6VZwRsE7WVno24zzTKiNvs3dkZZKdLBZ9-RSQ5fVwFDFIYYS78hLQaYKJtPifXeChfYe979KLc7XlL7ytcq4G8JH2OX7JhCLvpXACQtg39uXMIYRugPJfDpNumGTr9PpDuB66N9eWGAzKLTV6sTP1EgwWR1iT-___KIviS_DChOxY17t9A8HQv8Lrng"
+              />
+              <p class="text-base font-normal leading-normal flex-1">
+                Carlos Ruiz
+              </p>
+              <input
+                checked=""
+                class="form-checkbox h-6 w-6 rounded-md border-border-light border-2 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0"
+                type="checkbox"
+              />
+            </label>
+            <div class="h-px bg-border-light ml-14"></div>
+            <label class="flex gap-x-4 py-3 items-center">
+              <img
+                class="h-10 w-10 rounded-full object-cover"
+                data-alt="Profile picture of Ana García"
+                src="https://lh3.googleusercontent.com/aida-public/AB6AXuC4x0OA9UC5CTrqKn0DQFRSkdfPO1Ol-kbbZLgDktCkEap0M6e627XQhF_XiIaevyMr_MnyxQPnn8WjdRMtVOUMPpN_sh-MmUZXooA7AfG3pb6v0u8BDPawvXShEa0w3f1pwdIgbwU6HvRlabSN0ZAMIemZNS-DONNrz0DGTRCT0am9p8FeJWQg4ju3gKlaA5SlxxOQ3bgq7iwHGs0p8uf8dAAZFN4cY-AMu4uDOy91s6dCBwlSAeofavKECajHzSwMXfLl1X84bw"
+              />
+              <p class="text-base font-normal leading-normal flex-1">
+                Ana García
+              </p>
+              <input
+                class="form-checkbox h-6 w-6 rounded-md border-border-light border-2 bg-transparent text-primary checked:bg-primary checked:border-primary focus:ring-0 focus:ring-offset-0"
+                type="checkbox"
+              />
+            </label>
+          </div>
+        </div>
+        <!-- Image Uploader -->
+        <div>
+          <h3
+            class="text-lg font-bold leading-tight tracking-[-0.015em] px-4 pb-2 pt-6"
+          >
+            Comprobante
+          </h3>
+          <div class="px-4 py-2">
+            <button
+              class="flex w-full flex-col items-center justify-center gap-2 rounded-lg border-2 border-dashed border-border-light bg-field-light/50 p-6 text-center text-subtle-light"
+            >
+              <span class="material-symbols-outlined text-4xl">upload_file</span
+              >
+              <p class="text-sm font-medium">Subir foto del recibo</p>
+            </button>
+          </div>
+        </div>
+      </main>
+      <!-- Floating Action Button -->
+      <!-- <div
+        class="fixed bottom-0 left-0 right-0 p-4 bg-background-light border-t border-border-light/50"
+      >
+        <button
+          class="w-full rounded-lg bg-primary py-4 text-center text-base font-bold text-background-dark"
+          >Añadir Gasto</button
+        >
+      </div> -->
+    </div>
+  </div>
+</Layout>
+
+<style>
+  #div-body {
+    min-height: max(884px, 100dvh);
+  }
+</style>
