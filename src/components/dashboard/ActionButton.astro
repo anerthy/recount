@@ -1,0 +1,25 @@
+---
+interface Props {
+  label: string;
+  description: string;
+  link: string;
+  color: string;
+}
+
+const { label, description, link, color = 'gray' } = Astro.props;
+---
+
+<button
+  class="w-full flex items-center gap-3 px-4 py-3 text-left bg-indigo-50 hover:bg-indigo-100 rounded-lg transition-colors"
+  onclick={`window.location.href='${link}'`}
+>
+  <div
+    class={`w-10 h-10 bg-${color}-600 rounded-lg flex items-center justify-center`}
+  >
+    <slot name="icon" />
+  </div>
+  <div>
+    <p class="text-sm font-medium text-gray-900">{label}</p>
+    <p class="text-xs text-gray-500">{description}</p>
+  </div>
+</button>
