@@ -1,0 +1,145 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import AuthHeader from '@/components/auth/AuthHeader.astro';
+import AuthLayout from '@/components/auth/AuthLayout.astro';
+import Input from '@/components/auth/Input.astro';
+import SubmitButton from '@/components/auth/SubmitButton.astro';
+import SocialButtons from '@/components/auth/SocialButtons.astro';
+---
+
+<Layout title="Register">
+  <AuthLayout gradient="purple">
+    <AuthHeader
+      title="Create Account"
+      subtitle="Already have an account?"
+      linkText="Sign in"
+      linkHref="/signin"
+      color="purple"
+    />
+
+    <form action="/api/auth/register" method="post" class="space-y-6">
+      <Input
+        type="text"
+        name="username"
+        id="username"
+        label="Username"
+        placeholder="johndoe"
+        required
+        color="purple"
+      />
+
+      <Input
+        type="text"
+        name="name"
+        id="name"
+        label="Name"
+        placeholder="John Doe"
+        required
+        color="purple"
+      />
+
+      <Input
+        type="email"
+        name="email"
+        id="email"
+        label="Email"
+        placeholder="you@example.com"
+        required
+        color="purple"
+      />
+
+      <Input
+        type="password"
+        name="password"
+        id="password"
+        label="Password"
+        placeholder="••••••••"
+        hint="Must be at least 8 characters long"
+        required
+        color="purple"
+      />
+
+      <Input
+        type="password"
+        name="confirm-password"
+        id="confirm-password"
+        label="Confirm Password"
+        placeholder="••••••••"
+        required
+        color="purple"
+      />
+
+      <div class="flex items-start">
+        <input
+          type="checkbox"
+          id="terms"
+          name="terms"
+          required
+          class="mt-1 h-4 w-4 text-purple-600 border-gray-300 rounded focus:ring-purple-500"
+        />
+        <label for="terms" class="ml-2 text-sm text-gray-600">
+          I agree to the
+          <a
+            href="/terms"
+            class="text-purple-600 hover:text-purple-700 underline"
+            >Terms of Service</a
+          >
+          and
+          <a
+            href="/privacy"
+            class="text-purple-600 hover:text-purple-700 underline"
+            >Privacy Policy</a
+          >
+        </label>
+      </div>
+
+      <SubmitButton text="Create Account" color="purple" />
+    </form>
+
+    <SocialButtons>Or sign up with</SocialButtons>
+
+    <p slot="footer" class="text-center text-sm text-gray-600 mt-8">
+      By signing up, you agree to our terms and privacy policy
+    </p>
+  </AuthLayout>
+</Layout>
+
+<script>
+  import { actions, isInputError } from 'astro:actions';
+  import { navigate } from 'astro:transitions/client';
+
+  const form = document.querySelector('form') as HTMLFormElement;
+
+  form.addEventListener('submit', async (event) => {
+    event.preventDefault();
+
+    const formData = new FormData(form);
+
+    const { error } = await actions.register(formData);
+
+    if (isInputError(error)) {
+      if (error.fields.username) {
+        const message = error.fields.username.join(', ');
+        alert(message);
+        return;
+      }
+      if (error.fields.name) {
+        const message = error.fields.name.join(', ');
+        alert(message);
+        return;
+      }
+      if (error.fields.email) {
+        const message = error.fields.email.join(', ');
+        alert(message);
+        return;
+      }
+      if (error.fields.password) {
+        const message = error.fields.password.join(', ');
+        alert(message);
+        return;
+      }
+    }
+
+    navigate('/signin');
+  });
+</script>
