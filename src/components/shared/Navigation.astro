@@ -1,34 +1,37 @@
+---
+const { url } = Astro;
+console.log(url.pathname);
+const isActive = (path: string) => {
+  return url.pathname === path;
+};
+
+const tabOptions = [
+  {
+    href: '/dashboard',
+    label: 'Dashboard',
+    icon: 'dashboard',
+  },
+  { href: '/groups', label: 'Grupos', icon: 'group' },
+  { href: '/activity', label: 'Actividad', icon: 'receipt_long' },
+  { href: '/profile', label: 'Perfil', icon: 'person' },
+];
+---
+
 <nav
-  class="fixed bottom-0 left-0 right-0 mx-auto max-w-md border-t border-zinc-200 dark:border-zinc-700 bg-white/80 dark:bg-background-dark/80 backdrop-blur-lg"
+  class="fixed bottom-0 left-0 right-0 mx-auto max-w-md border-t border-zinc-200 bg-white/80 backdrop-blur-lg"
 >
   <div class="flex h-20 justify-around">
-    <a
-      class="flex flex-col items-center justify-center gap-1 w-full text-zinc-500 dark:text-zinc-400"
-      href="/dashboard"
-    >
-      <span class="material-symbols-outlined">dashboard</span>
-      <span class="text-xs font-medium">Dashboard</span>
-    </a>
-    <a
-      class="flex flex-col items-center justify-center gap-1 w-full text-primary"
-      href="/groups"
-    >
-      <span class="material-symbols-outlined">group</span>
-      <span class="text-xs font-bold">Grupos</span>
-    </a>
-    <a
-      class="flex flex-col items-center justify-center gap-1 w-full text-zinc-500 dark:text-zinc-400"
-      href="/activity"
-    >
-      <span class="material-symbols-outlined">receipt_long</span>
-      <span class="text-xs font-medium">Actividad</span>
-    </a>
-    <a
-      class="flex flex-col items-center justify-center gap-1 w-full text-zinc-500 dark:text-zinc-400"
-      href="/profile"
-    >
-      <span class="material-symbols-outlined">person</span>
-      <span class="text-xs font-medium">Perfil</span>
-    </a>
+    {
+      tabOptions.map(({ href, label, icon }) => (
+        <a
+          class={`flex flex-col items-center justify-center gap-1 w-full 
+            ${isActive(href) ? 'text-primary' : 'text-zinc-500'}`}
+          href={href}
+        >
+          <span class="material-symbols-outlined">{icon}</span>
+          <span class="text-xs font-bold">{label}</span>
+        </a>
+      ))
+    }
   </div>
 </nav>
