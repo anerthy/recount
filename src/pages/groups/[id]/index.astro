@@ -1,6 +1,10 @@
 ---
 import type { GetStaticPaths } from 'astro';
 import Layout from '@/layouts/Layout.astro';
+import Navigation from '@/components/shared/Navigation.astro';
+import TopBar from '@/components/shared/TopBar.astro';
+import Breakdown from '@/components/groups/Breakdown.astro';
+import BalanceSummaryCard from '@/components/groups/BalanceSummaryCard.astro';
 
 export const getStaticPaths = (() => {
   return [
@@ -11,11 +15,63 @@ export const getStaticPaths = (() => {
 }) satisfies GetStaticPaths;
 
 const { id } = Astro.params;
+
+const name = 'Piso Calle Mayor';
 ---
 
 <Layout
   title="Dashboard groups"
   description="View details of the selected group"
 >
-  <h1>Group Dashboard {id}</h1>
+  <div class="bg-background-light font-display">
+    <div
+      class="relative mx-auto flex h-auto min-h-screen w-full max-w-md flex-col overflow-x-hidden group/design-root"
+    >
+      <TopBar title={name} />
+
+      <main class="grow px-4 pb-32">
+        <input type="hidden" name="groupId" id="groupId" value={id} />
+        <BalanceSummaryCard currency="$" amountOwed={10} amountDue={0} />
+        <!-- Action Buttons -->
+        <div class="grid grid-cols-2 gap-4 my-6">
+          <button
+            id="add-expense"
+            class="flex flex-col items-center justify-center gap-2 rounded-xl bg-primary/20 p-4 text-primary h-24"
+          >
+            <span class="material-symbols-outlined text-3xl">add_circle</span>
+            <span class="text-sm font-bold">Añadir Gasto</span>
+          </button>
+          <button
+            id="settle-up"
+            class="flex flex-col items-center justify-center gap-2 rounded-xl bg-zinc-200 p-4 text-zinc-800 h-24"
+          >
+            <span class="material-symbols-outlined text-3xl">paid</span>
+            <span class="text-sm font-bold">Liquidar</span>
+          </button>
+        </div>
+        <Breakdown />
+      </main>
+      <!-- Bottom Navigation Bar -->
+      <Navigation />
+    </div>
+  </div>
 </Layout>
+
+<script>
+  const id = (document.getElementById('groupId') as HTMLInputElement).value;
+
+  const addExpenseButton = document.querySelector(
+    '#add-expense'
+  ) as HTMLButtonElement;
+  const settleUpButton = document.querySelector(
+    '#settle-up'
+  ) as HTMLButtonElement;
+
+  addExpenseButton.addEventListener('click', () => {
+    window.location.href = `/groups/${id}/add-expense`;
+  });
+
+  settleUpButton.addEventListener('click', () => {
+    window.location.href = `/groups/${id}/settle-up`;
+  });
+</script>
