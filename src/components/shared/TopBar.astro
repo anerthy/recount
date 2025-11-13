@@ -1,0 +1,35 @@
+---
+interface ButtonOption {
+  href: string;
+  text: string;
+  icon: string;
+}
+
+interface Props {
+  title: string;
+  buttonPrimary?: ButtonOption;
+  buttonSecondary?: ButtonOption;
+}
+
+const { title } = Astro.props;
+---
+
+<header
+  class="flex items-center bg-background-light p-4 pb-2 justify-between sticky top-0 z-10"
+>
+  <div class="flex size-12 shrink-0 items-center justify-start text-zinc-800">
+    <span class="material-symbols-outlined text-3xl">groups</span>
+  </div>
+  <h1
+    class="text-zinc-900 text-lg font-bold leading-tight tracking-[-0.015em] flex-1 text-center"
+  >
+    {title}
+  </h1>
+  <div class="flex w-12 items-center justify-end">
+    <button
+      class="flex max-w-[480px] cursor-pointer items-center justify-center overflow-hidden rounded-lg h-12 bg-transparent text-zinc-900 gap-2 text-base font-bold leading-normal tracking-[0.015em] min-w-0 p-0"
+    >
+      <span class="material-symbols-outlined">notifications</span>
+    </button>
+  </div>
+</header>
