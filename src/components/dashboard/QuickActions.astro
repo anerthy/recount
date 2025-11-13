@@ -1,0 +1,50 @@
+---
+import ActionButton from './ActionButton.astro';
+import PlusIcon from '../icons/PlusIcon.astro';
+import ChartIcon from '../icons/ChartIcon.astro';
+import SettingsIcon from '../icons/SettingsIcon.astro';
+
+const actions = [
+  {
+    label: 'Create group',
+    description: 'Start a new group',
+    link: '/groups/new',
+    icon: PlusIcon,
+    color: 'indigo',
+  },
+  {
+    label: 'View activity',
+    description: 'See recent activity',
+    link: '/activity',
+    icon: ChartIcon,
+    color: 'gray',
+  },
+  {
+    label: 'Profile settings',
+    description: 'Update your profile',
+    link: '/profile',
+    icon: SettingsIcon,
+    color: 'gray',
+  },
+];
+---
+
+<div class="bg-white rounded-xl shadow-sm border border-gray-200">
+  <div class="p-6 border-b border-gray-200">
+    <h2 class="text-lg font-semibold text-gray-900">Quick Actions</h2>
+  </div>
+  <div class="p-6 space-y-3">
+    {
+      actions.map((action) => (
+        <ActionButton
+          label={action.label}
+          description={action.description}
+          link={action.link}
+          color={action.color}
+        >
+          <action.icon slot="icon" />
+        </ActionButton>
+      ))
+    }
+  </div>
+</div>
