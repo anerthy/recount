@@ -1,0 +1,19 @@
+---
+import type { GetStaticPaths } from 'astro';
+import Layout from '@/layouts/Layout.astro';
+
+export const getStaticPaths = (() => {
+  return [
+    { params: { id: '1' } },
+    { params: { id: '2' } },
+    { params: { id: '3' } },
+    { params: { id: 'new' } },
+  ];
+}) satisfies GetStaticPaths;
+
+const { id } = Astro.params;
+---
+
+<Layout title="Group Details" description="View details of the selected group">
+  <h1>Group {id}</h1>
+</Layout>

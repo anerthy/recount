@@ -1,0 +1,39 @@
+---
+import GroupCard from './GroupCard.astro';
+
+const groups = [
+  {
+    id: '1',
+    icon: 'sports_soccer',
+    groupName: 'Torneo',
+    amountOwed: 15.0,
+  },
+  {
+    id: '2',
+    icon: 'home',
+    groupName: 'Roomies',
+    amountOwed: -40.0,
+  },
+  {
+    id: '3',
+    icon: 'group',
+    groupName: 'Amigos de la Uni',
+    amountOwed: 0,
+  },
+];
+---
+
+<main class="grow px-4 pb-32">
+  <div class="space-y-4 my-4">
+    {
+      groups.map((group) => (
+        <GroupCard
+          id={group.id}
+          icon={group.icon}
+          groupName={group.groupName}
+          amountOwed={group.amountOwed}
+        />
+      ))
+    }
+  </div>
+</main>
