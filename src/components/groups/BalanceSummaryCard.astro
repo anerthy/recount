@@ -1,0 +1,44 @@
+---
+interface Props {
+  currency: string;
+  amountOwed: number;
+  amountDue: number;
+}
+
+const { currency = '$', amountOwed = 0, amountDue = 0 } = Astro.props;
+---
+
+{
+  amountOwed > 0 && (
+    <div class="bg-white rounded-xl p-6 my-4 shadow-sm">
+      <p class="text-zinc-500 text-base font-normal leading-normal">
+        Te deben un total de
+      </p>
+      <h2 class="text-emerald-500 tracking-tight text-[40px] font-bold leading-tight py-1">
+        +{amountOwed} {currency}
+        <p class="text-zinc-500 text-sm font-normal leading-normal">
+          {amountDue === 0
+            ? 'Estás al día. ¡Buen trabajo!'
+            : 'Recuerda liquidar tus gastos pendientes.'}
+        </p>
+      </h2>
+    </div>
+  )
+}
+
+{
+  amountDue > 0 && (
+    <div class="bg-white rounded-xl p-6 my-4 shadow-sm">
+      <p class="text-zinc-500 text-base font-normal leading-normal">
+        Debes un total de
+      </p>
+      <h2 class="text-red-500 tracking-tight text-[40px] font-bold leading-tight py-1">
+        -{amountDue}
+        {currency}
+        <p class="text-zinc-500 text-sm font-normal leading-normal">
+          Tienes gastos pendientes por liquidar.
+        </p>
+      </h2>
+    </div>
+  )
+}
