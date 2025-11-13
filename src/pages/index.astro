@@ -34,11 +34,11 @@ import Layout from '@/layouts/Layout.astro';
               </svg>
             </div>
             <a href="/">
-            <span
-              class="text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent"
-              >Recount</span>
+              <span
+                class="text-xl font-bold bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent"
+                >Recount</span
+              >
             </a>
-            
           </div>
           <div class="flex items-center gap-4">
             <a
@@ -621,5 +621,41 @@ import Layout from '@/layouts/Layout.astro';
         <p class="text-xl text-gray-600">See what our users are saying</p>
       </div>
     </section>
+
+    <footer class="border-t border-gray-200 bg-white">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div
+          class="flex flex-col md:flex-row justify-between items-center gap-4"
+        >
+          <div class="flex items-center gap-2">
+            <div
+              class="w-8 h-8 bg-gradient-to-br from-indigo-600 to-purple-600 rounded-lg"
+            >
+            </div>
+            <span class="font-bold text-gray-900">Recount</span>
+          </div>
+          <p class="text-gray-600 text-sm">
+            © 2024 Recount. All rights reserved.
+          </p>
+          <div class="flex gap-6">
+            <a
+              href="#"
+              class="text-gray-600 hover:text-gray-900 transition-colors"
+              >Privacy</a
+            >
+            <a
+              href="#"
+              class="text-gray-600 hover:text-gray-900 transition-colors"
+              >Terms</a
+            >
+            <a
+              href="#"
+              class="text-gray-600 hover:text-gray-900 transition-colors"
+              >Contact</a
+            >
+          </div>
+        </div>
+      </div>
+    </footer>
   </div>
 </Layout>
