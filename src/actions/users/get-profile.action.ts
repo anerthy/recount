@@ -8,8 +8,6 @@ export const getUserProfile = defineAction({
     id: z.string().uuid(),
   }),
   handler: async ({ id }, context) => {
-    console.log('Fetching profile for user ID:', id);
-
     const { data: userData, error: userError } = await supabase
       .from('users')
       .select('*')
