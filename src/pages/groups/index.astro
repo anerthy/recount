@@ -1,16 +1,12 @@
 ---
+import AdminLayout from '@/layouts/AdminLayout.astro';
 import GroupList from '@/components/groups/GroupList.astro';
-import PageHeader from '@/components/shared/PageHeader.astro';
-import Layout from '@/layouts/Layout.astro';
 ---
 
-<Layout title="Your groups" description="Manage and view your groups here">
-  <PageHeader
-    title="Your groups"
-    pageOptionLeft="/groups"
-    iconClassLeft="Groups"
-    pageOptionRight="/notifications"
-    iconClassRight="Notifications"
-  />
+<AdminLayout
+  title="Your groups"
+  description="Manage and view your groups here"
+  backLink="/groups"
+>
   <GroupList />
-</Layout>
+</AdminLayout>
