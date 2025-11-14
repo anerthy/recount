@@ -1,9 +1,15 @@
 ---
-import Navigation from '@/components/shared/Navigation.astro';
-import Layout from '@/layouts/Layout.astro';
+import AdminLayout from '@/layouts/AdminLayout.astro';
 ---
 
-<Layout title="Dashboard">
-  <h1>Activity Page here</h1>
-  <Navigation />
-</Layout>
+<AdminLayout
+  title="Actividad"
+  description="Ver tu actividad reciente"
+  backLink="/groups"
+>
+  <div class="bg-white rounded-xl p-6 my-4 shadow-sm">
+    <p class="text-zinc-500 text-base font-normal leading-normal">
+      No hay actividad reciente.
+    </p>
+  </div>
+</AdminLayout>
