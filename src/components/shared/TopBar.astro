@@ -7,18 +7,17 @@ interface ButtonOption {
 
 interface Props {
   title: string;
-  buttonPrimary?: ButtonOption;
-  buttonSecondary?: ButtonOption;
+  backLink?: string;
 }
 
-const { title } = Astro.props;
+const { title, backLink = '/groups' } = Astro.props;
 ---
 
 <header
   class="flex items-center bg-background-light p-4 pb-2 justify-between sticky top-0 z-10"
 >
   <div class="flex size-12 shrink-0 items-center justify-start text-zinc-800">
-    <a href="/groups">
+    <a href={backLink}>
       <span class="material-symbols-outlined text-3xl">groups</span>
     </a>
   </div>
