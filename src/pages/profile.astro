@@ -1,9 +1,17 @@
 ---
-import Navigation from '@/components/shared/Navigation.astro';
-import Layout from '@/layouts/Layout.astro';
+import AdminLayout from '@/layouts/AdminLayout.astro';
 ---
 
-<Layout title="Dashboard">
-  <h1>Profile Page here</h1>
-  <Navigation />
-</Layout>
+<AdminLayout
+  title="Profile"
+  description="View and edit your profile settings"
+  backLink="/groups"
+>
+  <section class="mt-8">
+    <h3
+      class="text-zinc-900 text-[22px] font-bold leading-tight tracking-[-0.015em] pb-3"
+    >
+      Profile Settings
+    </h3>
+  </section>
+</AdminLayout>
