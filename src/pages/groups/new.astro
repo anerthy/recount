@@ -1,4 +1,5 @@
 ---
+import { getCategories } from '@/actions/categories/get-categories.action';
 import { getUsers } from '@/actions/users/get-users.action';
 import Layout from '@/layouts/Layout.astro';
 import { supabase } from '@/lib/supabase';
@@ -13,8 +14,13 @@ const session = await supabase.auth.setSession({
 
 const userId = session.data.user?.id!;
 
-const { error, data } = await Astro.callAction(getUsers, {});
+const { error: usersError, data } = await Astro.callAction(getUsers, {});
 const users = data?.filter((user) => user.id !== userId) ?? [];
+
+const { data: categories, error: categoriesError } = await Astro.callAction(
+  getCategories,
+  {}
+);
 ---
 
 <Layout title="New Group">
@@ -79,25 +85,61 @@ const users = data?.filter((user) => user.id !== userId) ?? [];
                 placeholder="Add a description for your group"></textarea>
             </label>
 
-            <select
-              id="members"
-              multiple
-              class="border border-gray-300 rounded-xl p-3 text-gray-700"
-            >
-              {
-                users.map(({ id, username, email }) => (
-                  <option
-                    value={id}
-                    class="border border-gray-300 rounded-xl p-2 text-gray-700 m-2"
-                  >
-                    {username} - {email}
-                  </option>
-                ))
-              }
-            </select>
+            <label class="flex flex-col w-full" for="category">
+              <p class="text-sm font-medium leading-normal pb-2">Category</p>
+              <select
+                id="category"
+                name="category"
+                class="border border-gray-300 rounded-xl p-3 text-gray-700"
+              >
+                {
+                  categories?.map(({ id, name }) => (
+                    <option
+                      value={id}
+                      class="border border-gray-300 rounded-xl p-2 text-gray-700 m-2"
+                    >
+                      {name}
+                    </option>
+                  ))
+                }
+              </select>
+            </label>
+
+            <label class="flex flex-col w-full" for="members">
+              <p class="text-sm font-medium leading-normal pb-2">Members</p>
+              <select
+                id="members"
+                multiple
+                class="border border-gray-300 rounded-xl p-3 text-gray-700"
+              >
+                {
+                  users.map(({ id, username, email }) => (
+                    <option
+                      value={id}
+                      class="border border-gray-300 rounded-xl p-2 text-gray-700 m-2"
+                    >
+                      {username} - {email}
+                    </option>
+                  ))
+                }
+              </select>
+            </label>
           </div>
-          <!-- Members -->
-          <!-- <div class="w-full max-w-md mx-auto pt-8">
+          <footer
+            class="p-4 bg-linear-to-t from-background-light to-transparent"
+          >
+            <div class="max-w-md mx-auto">
+              <button
+                type="submit"
+                class="flex w-full min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-4 bg-primary text-[#10221f] text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-primary/30"
+              >
+                <span class="truncate">Create Group</span>
+              </button>
+            </div>
+          </footer>
+        </form>
+        <!-- Members -->
+        <!-- <div class="w-full max-w-md mx-auto pt-8">
             <h3
               class="text-[#111817] text-lg font-bold leading-tight tracking-[-0.015em] pb-3"
             >
@@ -136,121 +178,112 @@ const users = data?.filter((user) => user.id !== userId) ?? [];
               </button>
             </div>
           </div> -->
-          <!-- Members -->
-          <div class="w-full max-w-md mx-auto pt-8 pb-32">
-            <h3
-              class="text-[#111817] text-lg font-bold leading-tight tracking-[-0.015em] pb-3"
-            >
-              Group Settings
-            </h3>
-            <div class="flex flex-col w-full gap-4">
-              <div class="flex flex-col w-full">
-                <label
-                  class="text-sm font-medium leading-normal pb-2"
-                  for="currency-select">Currency</label
-                >
-                <button
-                  class="flex w-full items-center justify-between rounded-xl border border-gray-300 bg-white px-4 py-3 text-left"
-                >
-                  <div class="flex items-center gap-3">
-                    <div
-                      class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-base font-bold text-gray-600"
-                    >
-                      €
-                    </div>
-                    <div>
-                      <p class="font-semibold text-[#111817]">CRC</p>
-                      <p class="text-xs text-gray-500">Colones</p>
-                    </div>
-                  </div>
-                  <span class="material-symbols-outlined text-gray-400"
-                    >expand_more</span
-                  >
-                </button>
-              </div>
-              <div class="flex flex-col w-full">
-                <label
-                  class="text-sm font-medium leading-normal pb-2"
-                  for="split-rule-select">Default Expense Division</label
-                >
-                <button
-                  class="flex w-full items-center justify-between rounded-xl border border-gray-300 bg-white px-4 py-3 text-left"
-                >
-                  <div class="flex items-center gap-3">
-                    <div
-                      class="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20 text-primary"
-                    >
-                      <span class="material-symbols-outlined text-xl"
-                        >splitscreen</span
-                      >
-                    </div>
-                    <div>
-                      <p class="font-semibold text-[#111817]">
-                        Dividir por igual
-                      </p>
-                      <p class="text-xs text-gray-500">
-                        El coste se divide equitativamente
-                      </p>
-                    </div>
-                  </div>
-                  <span class="material-symbols-outlined text-gray-400"
-                    >expand_more</span
-                  >
-                </button>
-              </div>
-            </div>
-          </div>
-          <footer
-            class="p-4 bg-linear-to-t from-background-light to-transparent"
+        <!-- Members -->
+        <div class="w-full max-w-md mx-auto pt-8 pb-32">
+          <h3
+            class="text-[#111817] text-lg font-bold leading-tight tracking-[-0.015em] pb-3"
           >
-            <div class="max-w-md mx-auto">
-              <button
-                type="submit"
-                class="flex w-full min-w-[84px] cursor-pointer items-center justify-center overflow-hidden rounded-xl h-14 px-4 bg-primary text-[#10221f] text-base font-bold leading-normal tracking-[0.015em] shadow-lg shadow-primary/30"
+            Group Settings
+          </h3>
+          <div class="flex flex-col w-full gap-4">
+            <div class="flex flex-col w-full">
+              <label
+                class="text-sm font-medium leading-normal pb-2"
+                for="currency-select">Currency</label
               >
-                <span class="truncate">Create Group</span>
+              <button
+                class="flex w-full items-center justify-between rounded-xl border border-gray-300 bg-white px-4 py-3 text-left"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-gray-200 text-base font-bold text-gray-600"
+                  >
+                    €
+                  </div>
+                  <div>
+                    <p class="font-semibold text-[#111817]">CRC</p>
+                    <p class="text-xs text-gray-500">Colones</p>
+                  </div>
+                </div>
+                <span class="material-symbols-outlined text-gray-400"
+                  >expand_more</span
+                >
               </button>
             </div>
-          </footer>
-        </form>
+            <div class="flex flex-col w-full">
+              <label
+                class="text-sm font-medium leading-normal pb-2"
+                for="split-rule-select">Default Expense Division</label
+              >
+              <button
+                class="flex w-full items-center justify-between rounded-xl border border-gray-300 bg-white px-4 py-3 text-left"
+              >
+                <div class="flex items-center gap-3">
+                  <div
+                    class="flex h-8 w-8 items-center justify-center rounded-full bg-primary/20 text-primary"
+                  >
+                    <span class="material-symbols-outlined text-xl"
+                      >splitscreen</span
+                    >
+                  </div>
+                  <div>
+                    <p class="font-semibold text-[#111817]">
+                      Dividir por igual
+                    </p>
+                    <p class="text-xs text-gray-500">
+                      El coste se divide equitativamente
+                    </p>
+                  </div>
+                </div>
+                <span class="material-symbols-outlined text-gray-400"
+                  >expand_more</span
+                >
+              </button>
+            </div>
+          </div>
+        </div>
       </main>
     </div>
   </div>
-</Layout>
 
-<script>
-  import { actions } from 'astro:actions';
-  import { navigate } from 'astro:transitions/client';
+  <script>
+    import { actions } from 'astro:actions';
+    import { navigate } from 'astro:transitions/client';
 
-  const form = document.querySelector('form') as HTMLFormElement;
+    const form = document.querySelector('form') as HTMLFormElement;
 
-  form.addEventListener('submit', async (event) => {
-    event.preventDefault();
+    form.addEventListener('submit', async (event) => {
+      event.preventDefault();
 
-    const formData = new FormData(form);
-    const userId = formData.get('user-id') as string;
-    const name = formData.get('group-name') as string;
-    const description = formData.get('group-description') as string;
-    const membersSelect = document.getElementById(
-      'members'
-    ) as HTMLSelectElement;
-    const members = Array.from(membersSelect.selectedOptions).map(
-      (option) => option.value
-    );
+      const formData = new FormData(form);
+      const userId = formData.get('user-id') as string;
+      const name = formData.get('group-name') as string;
+      const category = formData.get('category') as string;
+      const description = formData.get('group-description') as string;
+      const membersSelect = document.getElementById(
+        'members'
+      ) as HTMLSelectElement;
+      const members = Array.from(membersSelect.selectedOptions).map(
+        (option) => option.value
+      );
 
-    const { error } = await actions.createGroup({
-      userId,
-      members: members,
-      name,
-      description,
-      category: 'friends',
+      const group = {
+        userId,
+        members,
+        name,
+        description,
+        category,
+      };
+      console.log(group);
+
+      const { error } = await actions.createGroup(group);
+
+      if (error) {
+        alert('Error creating group: ' + error.message);
+        return;
+      }
+
+      navigate('/groups');
     });
-
-    if (error) {
-      alert('Error creating group: ' + error.message);
-      return;
-    }
-
-    navigate('/groups');
-  });
-</script>
+  </script>
+</Layout>
