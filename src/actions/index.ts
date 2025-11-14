@@ -1,5 +1,6 @@
 import { register, signOut } from './auth';
 import { signIn } from './auth/sign-in.action';
+import { getCategories } from './categories/get-categories.action';
 import { createGroup } from './groups/create-group.action';
 import { getGroup } from './groups/get-group.action';
 import { getUserGroups } from './groups/get-user-groups.action';
@@ -13,4 +14,5 @@ export const server = {
   getUserGroups,
   createGroup,
   getUsers,
+  getCategories,
 };
