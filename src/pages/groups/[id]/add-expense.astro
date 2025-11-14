@@ -34,6 +34,7 @@ const categories = [
   backLink={`/groups/${groupId}`}
 >
   <form class="flex flex-col flex-1 pb-28">
+    <input type="hidden" name="group-id" value={groupId} />
     <div class="pt-6 pb-3 text-center flex items-center ">
       <span class="text-5xl font-bold leading-tight tracking-tight">$ </span>
       <input 
@@ -147,6 +148,8 @@ const categories = [
 </AdminLayout>
 
 <script>
+import { navigate } from "astro:transitions/client";
+
 
   const selectMembersButton = document.getElementById('sellect-all-members') as HTMLButtonElement;
   const checkboxes = document.querySelectorAll('input[name="member-id"]') as NodeListOf<HTMLInputElement>;
@@ -170,6 +173,7 @@ const categories = [
     });
 
     const expense = {
+      groupId: formData.get('group-id'),
       amount: formData.get('expense-amount'),
       description: formData.get('expense-description'),
       date: formData.get('expense-date'),
@@ -180,6 +184,7 @@ const categories = [
     console.log(expense);
     
     alert('Expense added successfully!');
+    navigate(`/groups/${expense.groupId}`);
 
   });
 
