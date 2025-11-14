@@ -1,22 +1,20 @@
 ---
-import type { GetStaticPaths } from 'astro';
 import Layout from '@/layouts/Layout.astro';
 import Navigation from '@/components/shared/Navigation.astro';
 import TopBar from '@/components/shared/TopBar.astro';
 import Breakdown from '@/components/groups/Breakdown.astro';
 import BalanceSummaryCard from '@/components/groups/BalanceSummaryCard.astro';
-
-export const getStaticPaths = (() => {
-  return [
-    { params: { id: '1' } },
-    { params: { id: '2' } },
-    { params: { id: '3' } },
-  ];
-}) satisfies GetStaticPaths;
+import { getGroup } from '@/actions/groups/get-group.action';
 
 const { id } = Astro.params;
 
-const name = 'Piso Calle Mayor';
+const { data: group, error } = await Astro.callAction(getGroup, {
+  id: id as string,
+});
+
+if (error || !group) {
+  return Astro.redirect('/groups');
+}
 ---
 
 <Layout
@@ -27,7 +25,7 @@ const name = 'Piso Calle Mayor';
     <div
       class="relative mx-auto flex h-auto min-h-screen w-full max-w-md flex-col overflow-x-hidden group/design-root"
     >
-      <TopBar title={name} />
+      <TopBar title={group.name} />
 
       <main class="grow px-4 pb-32">
         <input type="hidden" name="groupId" id="groupId" value={id} />
