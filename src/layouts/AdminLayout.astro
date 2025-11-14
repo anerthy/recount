@@ -1,0 +1,27 @@
+---
+import Layout from '@/layouts/Layout.astro';
+import Navigation from '@/components/shared/Navigation.astro';
+import TopBar from '@/components/shared/TopBar.astro';
+
+interface Props {
+  title: string;
+  description?: string;
+  backLink?: string;
+}
+
+const { title, description, backLink } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <div class="bg-background-light font-display">
+    <div
+      class="relative mx-auto flex h-auto min-h-screen w-full max-w-md flex-col overflow-x-hidden group/design-root"
+    >
+      <TopBar title={title} backLink={backLink} />
+      <main class="grow px-4 pb-32">
+        <slot />
+      </main>
+      <Navigation />
+    </div>
+  </div>
+</Layout>
