@@ -1,8 +1,26 @@
 ---
-import CheckIcon from '../icons/CheckIcon.astro';
-import DollarIcon from '../icons/DollarIcon.astro';
+import { getUserGroups } from '@/actions/groups/get-user-groups.action';
 import UserIcon from '../icons/UserIcon.astro';
 import GroupItem from './GroupItem.astro';
+import { supabase } from '@/lib/supabase';
+
+const accessToken = Astro.cookies.get('sb-access-token');
+const refreshToken = Astro.cookies.get('sb-refresh-token');
+
+const session = await supabase.auth.setSession({
+  refresh_token: refreshToken!.value,
+  access_token: accessToken!.value,
+});
+
+const userId = session.data.user?.id!;
+
+const { data, error } = await Astro.callAction(getUserGroups, {
+  userId,
+});
+
+if (error) {
+  return Astro.redirect('/404');
+}
 ---
 
 <div class="lg:col-span-2 bg-white rounded-xl shadow-sm border border-gray-200">
@@ -13,29 +31,18 @@ import GroupItem from './GroupItem.astro';
   </div>
   <div class="p-6">
     <div class="space-y-4">
-      <GroupItem
-        name="Roomies"
-        description="Group for all shared expenses"
-        timestamp="All owed $120 this month"
-      >
-        <UserIcon slot="icon" />
-      </GroupItem>
-
-      <GroupItem
-        name="Groceries"
-        description="Group for tracking grocery expenses"
-        timestamp="All owed $120 this month"
-      >
-        <CheckIcon slot="icon" />
-      </GroupItem>
-
-      <GroupItem
-        name="Electricity Bill and Internet"
-        description="Group for monthly utilities"
-        timestamp="All owed $120 this month"
-      >
-        <DollarIcon slot="icon" />
-      </GroupItem>
+      {
+        data?.map(({ group_id: id, name, description, joined_at }) => (
+          <GroupItem
+            id={id}
+            name={name}
+            description={description}
+            timestamp={new Date(joined_at).toLocaleDateString()}
+          >
+            <UserIcon slot="icon" />
+          </GroupItem>
+        ))
+      }
     </div>
   </div>
 </div>

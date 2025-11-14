@@ -1,39 +1,41 @@
 ---
+import { getUserGroups } from '@/actions/groups/get-user-groups.action';
 import GroupCard from './GroupCard.astro';
+import { supabase } from '@/lib/supabase';
 
-const groups = [
-  {
-    id: '1',
-    icon: 'sports_soccer',
-    groupName: 'Torneo',
-    amountOwed: 15.0,
-  },
-  {
-    id: '2',
-    icon: 'home',
-    groupName: 'Roomies',
-    amountOwed: -40.0,
-  },
-  {
-    id: '3',
-    icon: 'group',
-    groupName: 'Amigos de la Uni',
-    amountOwed: 0,
-  },
-];
+const accessToken = Astro.cookies.get('sb-access-token');
+const refreshToken = Astro.cookies.get('sb-refresh-token');
+
+const session = await supabase.auth.setSession({
+  refresh_token: refreshToken!.value,
+  access_token: accessToken!.value,
+});
+
+const userId = session.data.user?.id!;
+
+const { data: groups, error } = await Astro.callAction(getUserGroups, {
+  userId,
+});
+
+if (error) {
+  return Astro.redirect('/404');
+}
 ---
 
 <main class="grow px-4 pb-32">
   <div class="space-y-4 my-4">
     {
-      groups.map((group) => (
-        <GroupCard
-          id={group.id}
-          icon={group.icon}
-          groupName={group.groupName}
-          amountOwed={group.amountOwed}
-        />
+      groups.map(({ group_id: id, name }) => (
+        <GroupCard id={id} icon="group" groupName={name} amountOwed={0} />
       ))
     }
+    <a href="/groups/new">
+      <div
+        class="mt-4 flex items-center justify-center rounded-xl border-2 border-dashed border-zinc-300 p-4 text-zinc-600 hover:border-zinc-400 hover:text-zinc-800 cursor-pointer"
+      >
+        <span class="material-symbols-outlined text-3xl">add</span>
+        <p class="ml-2 font-medium">Add Group</p>
+      </div>
+    </a>
   </div>
 </main>
