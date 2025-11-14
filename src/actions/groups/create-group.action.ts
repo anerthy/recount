@@ -9,7 +9,7 @@ export const createGroup = defineAction({
     members: z.array(z.string()),
     name: z.string(),
     description: z.string().optional(),
-    category: z.enum(['friends', 'home']),
+    category: z.string(),
   }),
   handler: async ({ userId, members, name, description, category }) => {
     const { data, error: errorGroup } = await supabase
